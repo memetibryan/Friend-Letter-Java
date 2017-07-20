@@ -2,7 +2,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import spark.ModelAndView;
-import spark.template.velocity.VelocityTemplateEngine
+import spark.template.velocity.VelocityTemplateEngine;
 import static spark.Spark.*;
 
 public class App {
@@ -13,10 +13,23 @@ public class App {
     String layout = "templates/layout.vtl";
 
     get("/", (request, response) -> {
-      Map<String, Object> model = new HashMap<String, Object>();
-      model.put("template", "templates/hello.vtl" );
-      return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine());
+  Map<String, Object> model = new HashMap<String, Object>();
+  model.put("username", request.session().attribute("username")); //session recorder
+
+  model.put("template", "templates/welcome.vtl");
+  return new ModelAndView(model, layout);
+}, new VelocityTemplateEngine());
+
+    post("/welcome", (request, response) -> {
+  Map<String, Object> model = new HashMap<String, Object>();
+
+  String inputtedUsername = request.queryParams("username");
+  request.session().attribute("username", inputtedUsername);
+  model.put("username", inputtedUsername);
+
+  model.put("template", "templates/welcome.vtl");
+  return new ModelAndView(model, layout);
+}, new VelocityTemplateEngine());
 
     get("/favorite_photos", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
