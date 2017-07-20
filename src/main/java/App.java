@@ -3,8 +3,7 @@ import static spark.Spark.*;
 public class App {
   public static void main(String[] args) {
     staticFileLocation("/public");
-    
-    get("/hello", (request, response) ->
+    get("/", (request, response) ->
        "<!DOCTYPE html>" +
         "<html>" +
         "<head>" +
@@ -20,6 +19,7 @@ public class App {
           "<p>Looking forward to seeing you soon. I'll bring you back a souvenir. </p>" +
           "<p>Cheers,</p>" +
           "<p>Travel Enthusiast Jane</p>" +
+          "<p><a href='/favorite_photos' >P.S. Check out my favorite travel photos here.</a></p>" +
         "</body>" +
       "</html>"
    );
@@ -34,8 +34,8 @@ public class App {
       "<body>" +
        "<h1>Favorite Traveling Photos</h1>" +
           "<ul>" +
-            "<li><img src='/images/bryan.jpeg' alt='A photo of a mountain.'/></li>" +
-            "<li><img src='/images/memeti.jpeg' alt='A photo of a a rocky beach.'/></li>" +
+            "<li><img src='/images/bryan.jpg' alt='A photo of a mountain.'/></li>" +
+            "<li><img src='/images/memeti.jpg' alt='A photo of a a rocky beach.'/></li>" +
           "</ul>" +
       "</body>" +
       "</html>"
